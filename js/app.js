@@ -98,38 +98,57 @@ function getRestaurants() {
 }
 
 function initMap() {
+
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
+    center: {lat: -23.557567, lng: -46.658615},
+    zoom: 15
   });
 
-  var latife = {lat: -23.557567, lng: -46.658615};
+  var latife = new google.maps.Marker({
+    position: {lat: -23.557567, lng: -46.658615},
+    map: map
+  })
 
-  var arabesco = {lat: -23.5607625, lng: -46.658615};
+  var arabesco = new google.maps.Marker({
+    position: {lat: -23.5607625, lng: -46.65784689999998},
+    map: map
+  })
 
-  var ragazzo = {lat: -23.557567, lng: -46.658615};
+  var ragazzo = new google.maps.Marker({
+    position: {lat: -23.5588598, lng: -46.66152740000001},
+    map: map
+  })
 
-  var mcdonalds = {lat: -23.557567, lng: -46.658615};
+  var mcdonalds = new google.maps.Marker({
+    position: {lat: -23.558783, lng: -46.66130229999999},
+    map: map
+  })
 
-  var cantina = {lat: -23.557567, lng: -46.658615};
+  var cantina = new google.maps.Marker({
+    position: {lat: -23.5587677, lng: -46.66278650000004},
+    map: map
+  })
 
-  var popVegan = {lat: -23.557567, lng: -46.658615};
+  var popVegan = new google.maps.Marker({
+    position: {lat: -23.5539487, lng: -46.65767779999999},
+    map: map
+  })
 
-  var lovingHut = {lat: -23.557567, lng: -46.658615};
+  var lovingHut = new google.maps.Marker({
+    position: {lat: -23.5539487, lng: -46.65767779999999},
+    map: map
+  })
 
-  var ajiTo = {lat: -23.557567, lng: -46.658615};
+  var ajiTo = new google.maps.Marker({
+    position: {lat: -23.5560888, lng: -46.657931700000006},
+    map: map
+  })
 
-  var sushimasa = {lat: -23.557567, lng: -46.658615};
+  var sushimasa = new google.maps.Marker({
+    position: {lat: -23.5600095, lng: -46.66369069999996},
+    map: map
+  })
 
 }
 
 
-function initMap() {
-  // The location of Uluru
-  var uluru = {lat: -25.344, lng: 131.036};
-  // The map, centered at Uluru
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: uluru});
-  // The marker, positioned at Uluru
-  var marker = new google.maps.Marker({position: uluru, map: map});
-}
