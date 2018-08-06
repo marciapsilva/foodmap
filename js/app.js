@@ -55,7 +55,7 @@ function changeInputEvent() {
 }
 
 function selectTypeEvent() {
-  $('option').on('click touchstart', function(e) {
+  $('option').on('click', function(e) {
     filterByType(e);
     initMap();
     clickModalEvent();
