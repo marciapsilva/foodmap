@@ -105,12 +105,11 @@ html, body {
   color: #3a3a3a;
 }
 
-
 #show-results {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 2rem;
-  justify-content: space-between;
+  margin: 0 auto;
+  justify-content: center;
 }
 
 .rtr-title {
@@ -155,15 +154,15 @@ html, body {
 }
 
 #modal-img {
-  width: 9rem;
-  height: 9rem;
+  width: 25vw;
+  height: 25vw;
   object-fit: cover;
   margin: 0;
   padding: 0;
   border: 0.3rem solid #FA9400;
 }
 
-.modal .col-4, .modal .col-6 {
+.modal-img-box, .modal .col-6 {
   padding: 0;
 }
 
@@ -172,6 +171,11 @@ html, body {
   display: flex;
   justify-content: center;
 }
+
+.modal .row {
+  justify-content: center;
+}
+
 
 .modal-food-type, .modal-description {
   color: #12c7b0;
@@ -184,7 +188,7 @@ html, body {
 }
 
 .btn-order {
-  margin: 1.5rem 0 0 0;
+  margin: 1.5rem auto 0 auto;
   font-weight: 600;
   color: #fff;
   background-color: #12c7b0;
