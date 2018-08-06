@@ -55,7 +55,7 @@ function changeInputEvent() {
 }
 
 function selectTypeEvent() {
-  $('option').click(function(e) {
+  $('option').on('click touchstart', function(e) {
     filterByType(e);
     initMap();
     clickModalEvent();
@@ -138,14 +138,17 @@ function showModal(e) {
 
   $(restaurantes).map(function(index, value) {
     if (imgSrc === value.image) {
-
-      if (value.type === 'arabe') {
-        value.type = 'árabe';
+      
+      var arabe = value.type;
+      if (arabe === 'arabe') {
+        arabe = 'árabe';
+        $('#modal-type').text(arabe);
+      } else {
+        $('#modal-type').text(value.type);
       }
 
       $('#modal-title').text(value.name);
       $('#modal-img').attr('src', value.image);
-      $('#modal-type').text(value.type);
       $('#modal-type').css('textTransform', 'capitalize');
       $('#modal-description').text(value.description);
     }
