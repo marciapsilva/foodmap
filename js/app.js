@@ -113,6 +113,8 @@ function initMap() {
   };
   map = new google.maps.Map(document.getElementById('map'), mapOptions);
   
+  var customIcon = 'https://raw.githubusercontent.com/marciapsilva/foodmap/master/assets/maps-icon-small.png';
+
   var marker;
   $('#show-results img').map(function(index, value) {
     var imgSrc = $(this).attr('src');
@@ -122,7 +124,8 @@ function initMap() {
         marker = new google.maps.Marker({
           title: value.name,
           position: {lat: value.latitude, lng: value.longitude},
-          map: map
+          map: map,
+          icon: customIcon
         })     
       }
     })
@@ -153,6 +156,8 @@ function mapOnModal(e) {
   var foto = e.target;
   var imgSrc = $(foto).attr('src');
 
+  var customIcon = 'https://raw.githubusercontent.com/marciapsilva/foodmap/master/assets/maps-icon-small.png';
+
   $(restaurantes).map(function(index, value) {
     if (imgSrc === value.image) {
       var mapModalOptions = {
@@ -164,7 +169,8 @@ function mapOnModal(e) {
       marker = new google.maps.Marker({
         title: value.name,
         position: {lat: value.latitude, lng: value.longitude},
-        map: map
+        map: map,
+        icon: customIcon
       }); 
     }
   })
