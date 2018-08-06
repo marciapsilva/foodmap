@@ -1,154 +1,171 @@
 $(document).ready(function() {
-  // welcomeScreen();
-  
-  clearResults();
-    
-  $('#search-btn').click(function() {
-    searchRestaurants();
-  });
+  splashFadeOut();
 
-  $('#search-btn').prop('disabled', true);
-  $('input').keyup(function(e) {
-    emptyInput();
-    if (e.which === 13) {
-      searchRestaurants();
-    }
-  });
+  showAllOptions();
+  emptyInput();
+  resetSelectedType();
+  clickModalEvent();
 
-  $('#clear-btn').click(function() {
-    clearResults();
-  });
-
+  changeInputEvent();
+  selectTypeEvent();
 });
 
-function getUserInput() {
-  return $('input').val();
+function splashFadeOut() {
+  $('.splash').delay('2500').fadeOut(500);
+  $('.app-page').delay('2500').fadeIn(700);
+}
+
+function showAllOptions() {
+  clearScreen();
+  $(restaurantes).map(function(index, value) {
+    var createContainer = document.createElement('div');
+    var restaurantName = '<h5 class="rtr-title">' + value.name + '</h5>';
+    var restaurantImg = '<img class="rtr-img" data-toggle="modal" data-target="#exampleModal"  src="' + value.image + '">';
+    $(createContainer).append(restaurantName);
+    $(createContainer).append(restaurantImg);
+    $('#show-results').append(createContainer);
+  })
+}
+
+function clearScreen() {
+  $('#show-results').empty();
 }
 
 function emptyInput() {
-  if ($.trim(getUserInput()).length === 0) {
-    $('#search-btn').prop('disabled', true);
-  } else {
-    $('#search-btn').prop('disabled', false);
-  }
+  $('input').val('');
 }
 
-function clearResults() {
-  $('#show-results img').remove();
-  $('#no-results').empty();
+function resetSelectedType() {
+  $('#select-type').prop('selectedIndex',0);
+}
+
+function clickModalEvent() {
+  $('#show-results img').click(function(e) {
+    showModal(e);
+    mapOnModal(e);
+  });
+}
+
+function changeInputEvent() {
+  $('input').on('input', function() {
+    filterByName();
+    initMap();
+    clickModalEvent();
+  });
+}
+
+function selectTypeEvent() {
+  $('option').click(function(e) {
+    filterByType(e);
+    initMap();
+    clickModalEvent();
+  })
+}
+
+function filterByName() {
+  resetSelectedType();
+  clearScreen();
+  var userInput = $('input').val().toLowerCase();
 
   $(restaurantes).map(function(index, value) {
-
-    var restaurantImg = '<img src="' + value.image + '" alt="">';
-    $('#show-results').append(restaurantImg);
-  });
-  $('input').val(''); 
-  emptyInput();
-}
-
-function searchRestaurants() {
-  showResults();
-  $('input').val('');
-  emptyInput(); 
-}
-
-function showResults() {
-  var restaurants = getRestaurants();
-
-  if (restaurants.length > 0) {
-    $('#show-results img').map(function() {
-      $(this).remove();
-    });
-
-    $(restaurants).map(function(index, value) {
-
-      if(getUserInput() === value.name || getUserInput() === value.type) {
-        var restaurantImg = '<img src="' + value.image + '" alt="">';
-        $('#show-results').append(restaurantImg);
-      }
-    });
-  }
-}
-
-function getRestaurants() {
-  var aux = [];
-  $(restaurantes).map(function(index,value) {
-
-    var pegaInput = $('input').val();
-    console.log(pegaInput);
-
-    if (getUserInput() === value.name) {
-      aux[0] = value;
-      $('#no-results').empty();
+    if (value.name.toLowerCase().indexOf(userInput) > -1) {
+      var createContainer = document.createElement('div');
+      var restaurantName = '<h5 class="rtr-title">' + value.name + '</h5>';
+      var restaurantImg = '<img class="rtr-img" data-toggle="modal" data-target="#exampleModal"  src="' + value.image + '">';
+      $(createContainer).append(restaurantName);
+      $(createContainer).append(restaurantImg);
+      $('#show-results').append(createContainer);
     } 
+  })
 
-    if (getUserInput() === value.type) {
-      aux.push(value);
-      $('#no-results').empty();
-    }
+  if ($('#show-results').html().trim().length === 0) {
+    $('#show-results').html('<p>=( Não encontramos nenhum resultado com esse nome.</p>');
+  }
+}
+
+function filterByType(e) {
+  clearScreen();
+  emptyInput();
+
+  var option = e.target;
+  var type = $(option).data('foodType');
+
+  $(restaurantes).map(function(index, value) {
+    if(type === value.type) {
+      var createContainer = document.createElement('div');
+      var restaurantName = '<h5 class="rtr-title">' + value.name + '</h5>';
+      var restaurantImg = '<img class="rtr-img" data-toggle="modal" data-target="#exampleModal"  src="' + value.image + '">';
+      $(createContainer).append(restaurantName);
+      $(createContainer).append(restaurantImg);
+      $('#show-results').append(createContainer); 
+    } 
   });
 
-  if (aux.length === 0) {
-    $('#show-results img').map(function() {
-      $(this).remove();
-    });
-    $('#no-results').html('<p>Não encontramos nenhum resultado com esse nome</p>');
+  if (type === 'alltypes') {
+    showAllOptions();  
   }
-  return aux;
 }
 
 function initMap() {
+  var mapOptions = {
+      zoom: 15,
+      center: {lat: -23.556981, lng: -46.660259},
+  };
+  map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  
+  var marker;
+  $('#show-results img').map(function(index, value) {
+    var imgSrc = $(this).attr('src');
 
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -23.557567, lng: -46.658615},
-    zoom: 15
-  });
-
-  var latife = new google.maps.Marker({
-    position: {lat: -23.557567, lng: -46.658615},
-    map: map
+    $(restaurantes).map(function(index, value) {
+      if(imgSrc === value.image) {
+        marker = new google.maps.Marker({
+          title: value.name,
+          position: {lat: value.latitude, lng: value.longitude},
+          map: map
+        })     
+      }
+    })
   })
-
-  var arabesco = new google.maps.Marker({
-    position: {lat: -23.5607625, lng: -46.65784689999998},
-    map: map
-  })
-
-  var ragazzo = new google.maps.Marker({
-    position: {lat: -23.5588598, lng: -46.66152740000001},
-    map: map
-  })
-
-  var mcdonalds = new google.maps.Marker({
-    position: {lat: -23.558783, lng: -46.66130229999999},
-    map: map
-  })
-
-  var cantina = new google.maps.Marker({
-    position: {lat: -23.5587677, lng: -46.66278650000004},
-    map: map
-  })
-
-  var popVegan = new google.maps.Marker({
-    position: {lat: -23.5539487, lng: -46.65767779999999},
-    map: map
-  })
-
-  var lovingHut = new google.maps.Marker({
-    position: {lat: -23.5539487, lng: -46.65767779999999},
-    map: map
-  })
-
-  var ajiTo = new google.maps.Marker({
-    position: {lat: -23.5560888, lng: -46.657931700000006},
-    map: map
-  })
-
-  var sushimasa = new google.maps.Marker({
-    position: {lat: -23.5600095, lng: -46.66369069999996},
-    map: map
-  })
-
 }
 
+function showModal(e) {
+  var foto = e.target;
+  var imgSrc = $(foto).attr('src');
 
+  $(restaurantes).map(function(index, value) {
+    if (imgSrc === value.image) {
+
+      if (value.type === 'arabe') {
+        value.type = 'árabe';
+      }
+
+      $('#modal-title').text(value.name);
+      $('#modal-img').attr('src', value.image);
+      $('#modal-type').text(value.type);
+      $('#modal-type').css('textTransform', 'capitalize');
+      $('#modal-description').text(value.description);
+    }
+  })
+}
+
+function mapOnModal(e) {
+  var foto = e.target;
+  var imgSrc = $(foto).attr('src');
+
+  $(restaurantes).map(function(index, value) {
+    if (imgSrc === value.image) {
+      var mapModalOptions = {
+        zoom: 18,
+        center: {lat: value.latitude, lng: value.longitude},
+      };
+      map = new google.maps.Map(document.getElementById('modal-map'), mapModalOptions);
+
+      marker = new google.maps.Marker({
+        title: value.name,
+        position: {lat: value.latitude, lng: value.longitude},
+        map: map
+      }); 
+    }
+  })
+}
