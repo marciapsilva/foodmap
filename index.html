@@ -22,37 +22,39 @@
         <div id="map"></div>
       </div>
 
-      <div class="search-box">
-        <div>
-          <h2>Descubra restaurantes próximos a você:</h2>
-        </div>
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Nome do restaurante">
-          <div class="input-group-append">
-            <span class="input-group-text" id="basic-addon2">
-              <i class="fas fa-search"></i>
-            </span>
+      <div class="search-container">
+        <div class="search-box">
+          <div>
+            <h2>Descubra restaurantes próximos a você:</h2>
+          </div>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Nome do restaurante">
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">
+                <i class="fas fa-search"></i>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="search-by-type">
-        <div>
-          <h2>Ou busque por tipo de comida:</h2>
-        </div>
-        <form>
-          <div class="form-group">
-            <select class="custom-select" id="select-type">
-              <option data-food-type="alltypes">Todas</option>
-              <option data-food-type="arabe">Árabe</option>
-              <option data-food-type="fast food">Fast food</option>
-              <option data-food-type="italiana">Italiana</option>
-              <option data-food-type="japonesa">Japonesa</option>
-              <option data-food-type="vegana">Vegana</option>
-            </select>
+        <div class="search-by-type">
+          <div>
+            <h2>Ou busque por tipo de comida:</h2>
           </div>
-        </form>
+          <form>
+            <div class="form-group">
+              <select class="custom-select" id="select-type">
+                <option data-food-type="alltypes">Todas</option>
+                <option data-food-type="arabe">Árabe</option>
+                <option data-food-type="fast food">Fast food</option>
+                <option data-food-type="italiana">Italiana</option>
+                <option data-food-type="japonesa">Japonesa</option>
+                <option data-food-type="vegana">Vegana</option>
+              </select>
+            </div>
+          </form>
+        </div>
       </div>
-
+  
       <div class="container">
         <div class="row">
           <div id="show-results"></div>
@@ -71,16 +73,13 @@
             <div class="modal-body">
               <div id="modal-map"></div>
               <div class="container">
-                <div class="row">
-                  <div class="col-4 modal-img-box">
+                <div class="flex-md-row d-flex flex-column">
+                  <div class="col-10 col-md-4 modal-img-box">
                     <img id="modal-img" src="" alt="">
                   </div>
-                  <div class="col-7">
+                  <div class="col-10 col-md-7">
                     <p class="modal-food-type">Tipo de comida: <span id="modal-type"></span></p>
                     <p class="modal-description">Descrição: <span id="modal-description"></span></p>
-                  </div>
-                  <div class="col-4">
-                    <button type="button" class="btn btn-order">Fazer Pedido</button>
                   </div>
                 </div>
               </div>

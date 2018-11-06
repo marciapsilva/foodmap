@@ -8,6 +8,7 @@ $(document).ready(function() {
 
   changeInputEvent();
   selectTypeEvent();
+  
 });
 
 function splashFadeOut() {
@@ -55,8 +56,9 @@ function changeInputEvent() {
 }
 
 function selectTypeEvent() {
-  $('option').on('click', function(e) {
-    filterByType(e);
+  $('#select-type').on('change', function(e) {
+    var target = $('#select-type option:selected');
+    filterByType(target);
     initMap();
     clickModalEvent();
   })
@@ -83,12 +85,10 @@ function filterByName() {
   }
 }
 
-function filterByType(e) {
+function filterByType(target) {
   clearScreen();
   emptyInput();
-
-  var option = e.target;
-  var type = $(option).data('foodType');
+  var type = $(target).data('foodType');
 
   $(restaurantes).map(function(index, value) {
     if(type === value.type) {

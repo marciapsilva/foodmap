@@ -6,13 +6,16 @@ html, body {
   color: #3a3a3a;
 }
 
+.border-test {
+  border: 1px solid red;
+}
+
 .splash,
 .app-page {
   position: absolute;
   top:0;
   left: 0;
   width: 100%;
-  /* height: 100%; */
 }
 
 .splash {
@@ -21,6 +24,7 @@ html, body {
   background-color: #fff;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .splash-logo-box {
@@ -51,11 +55,6 @@ html, body {
   margin: 2rem;
 }
 
-.title-logo {
-  width: 60%;
-  height: 60%;
-}
-
 .block-breaker {
   border-top: 0.1rem solid #12c7b0;
   margin: 0 2rem;
@@ -71,20 +70,22 @@ html, body {
   margin: 2rem auto;
 }
 
+.search-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
 .search-box, .search-by-type {
-  margin: auto;
+  margin: 1%;
+  padding: 0;
 }
 
 .search-box h2, .search-by-type h2 {
   font-size: 1.2rem;
-  margin: 0 2rem;
   display: flex;
-  justify-content: start;
-}
-
-.search-box .input-group, .search-by-type form {
-  margin: 1rem 2rem;
-  width: 89%;
+  justify-content: center;
 }
 
 .input-group-text {
@@ -137,6 +138,10 @@ html, body {
   font-weight: 600;
 }
 
+.modal-body {
+  min-height: 1000px%;
+}
+
 .modal-title {
   color: #FA9400;
   font-weight: 700;
@@ -153,9 +158,14 @@ html, body {
   margin: 0.5rem auto;
 }
 
+.place-info {
+  flex-direction: row;
+  align-items: start;
+}
+
 #modal-img {
-  width: 25vw;
-  height: 25vw;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
   margin: 0;
   padding: 0;
@@ -196,4 +206,19 @@ html, body {
 
 .btn-order:hover, .btn-order:focus {
   background-color: #0b9482;
+}
+
+@media screen and (max-width: 700px) {
+  .search-container {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .place-info {
+    flex-direction: column;
+  }
+  .modal-img-box {
+    width: 100%;
+  }
 }
