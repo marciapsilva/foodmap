@@ -221,4 +221,12 @@ html, body {
   .modal-img-box {
     width: 100%;
   }
+  #modal-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin: 0;
+    padding: 0;
+    border: 0.3rem solid #FA9400;
+  }
 }
