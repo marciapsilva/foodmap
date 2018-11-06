@@ -1,6 +1,6 @@
 # Foodmap
 
-App de busca de restaurantes em uma determinada região a partir de APIs do Google Maps. Mobile only.
+App de busca de restaurantes em uma determinada região utilizando a API do Google Maps. Mobile only.
 
 **Página do projeto:** https://marciapsilva.github.io/foodmap/
 
